@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Enlaces</title>
+<style>
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #333333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input[type="text"] {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #666666;
+    border-radius: 4px;
+    background-color: #555555;
+    color: #ffffff;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  #output {
+    margin-top: 20px;
+  }
+  a {
+    color: #007bff;
+  }
+</style>
+</head>
+<body>
+
+<form id="linkForm">
+  <label for="token">Dirección del Token:</label>
+  <input type="text" id="token" name="token">
+  
+  <label for="maker">Dirección del Maker:</label>
+  <input type="text" id="maker" name="maker">
+  
+  <button type="button" onclick="generateLink()">Generar Enlace</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+function generateLink() {
+  var token = document.getElementById("token").value.trim();
+  var maker = document.getElementById("maker").value.trim();
+  var outputDiv = document.getElementById("output");
+  
+  var link = "";
+  
+  if (token !== "" && maker !== "") {
+    // Si se ingresa tanto la dirección del token como el maker
+    link = "https://dexscreener.com/solana/" + token + "?maker=" + maker;
+  } else if (token !== "") {
+    // Si se ingresa solo la dirección del token
+    link = "https://dexscreener.com/solana/" + token;
+  } else if (maker !== "") {
+    // Si se ingresa solo el maker
+    link = "https://solscan.io/account/" + maker + "#splTransfers";
+  }
+  
+  if (link !== "") {
+    outputDiv.innerHTML = '<a href="' + link + '" target="_blank">' + link + '</a>';
+  } else {
+    outputDiv.innerHTML = "Por favor, ingrese al menos la dirección del token o el maker.";
+  }
+}
+</script>
+
+</body>
+</html>
